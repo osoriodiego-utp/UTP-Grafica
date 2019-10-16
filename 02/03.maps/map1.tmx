@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="left-up" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="57">
- <tileset firstgid="1" source="../../../../Descargas/sin_nombre.tsx"/>
+ <tileset firstgid="1" source="../../../../Downloads/sin_nombre.tsx"/>
  <layer name="fondo" width="20" height="20">
   <data encoding="csv">
 42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,
@@ -25,7 +25,7 @@
 243,234,243,235,235,222,223,235,205,243,214,215,243,243,243,243,243,243,243,234
 </data>
  </layer>
- <objectgroup name="obj_fondo" visible="0">
+ <objectgroup name="obj_fondo">
   <object id="33" x="-2.66667" y="524" width="292" height="114.667"/>
   <object id="43" x="293.333" y="556" width="344" height="84"/>
   <object id="54" x="364" y="516" width="276" height="33.3333"/>
@@ -80,7 +80,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="obj_arboles" visible="0">
+ <objectgroup name="obj_arboles">
   <object id="12" x="30.6667" y="213.333" width="34.6667" height="76"/>
   <object id="16" x="97.3333" y="-1.33333" width="540" height="24"/>
   <object id="30" x="65.3333" y="277.333" width="29.3333" height="68">
@@ -132,7 +132,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="obj_casa" visible="0">
+ <objectgroup name="obj_casa">
   <object id="6" x="192" y="81.3333" width="154.667" height="102.667"/>
   <object id="7" x="130.667" y="212" width="152" height="129.333"/>
   <object id="8" x="357.333" y="260" width="121.333" height="90.6667"/>
@@ -163,7 +163,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#00ff00" name="obj_cambio_mapa" visible="0">
+ <objectgroup color="#00ff00" name="obj_cambio_mapa">
   <object id="36" x="34.6667" y="156" width="30.6667" height="34.6667"/>
   <object id="40" x="609.333" y="98.6667" width="32" height="412"/>
  </objectgroup>

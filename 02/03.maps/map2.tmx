@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="left-up" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="43">
- <tileset firstgid="1" source="../../../../Descargas/sin_nombre.tsx"/>
+ <tileset firstgid="1" source="../../../../Downloads/sin_nombre.tsx"/>
  <layer name="fondo" width="20" height="20">
   <data encoding="csv">
 42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,

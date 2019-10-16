@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="left-up" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="80">
- <tileset firstgid="1" source="../../../../Descargas/sin_nombre.tsx"/>
+ <tileset firstgid="1" source="../../../../Downloads/sin_nombre.tsx"/>
  <layer name="fondo" width="20" height="20">
   <data encoding="csv">
 42,42,42,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,180,
@@ -25,7 +25,7 @@
 42,42,42,65,66,66,66,42,42,42,42,66,58,58,66,58,58,66,66,42
 </data>
  </layer>
- <objectgroup name="obj_fondo" visible="0"/>
+ <objectgroup name="obj_fondo"/>
  <layer name="caminos" width="20" height="20">
   <data encoding="csv">
 170,170,170,170,170,0,194,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -50,7 +50,7 @@
 0,0,0,0,0,0,0,66,66,66,66,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="obj_caminos" visible="0">
+ <objectgroup name="obj_caminos">
   <object id="43" x="140" y="0" width="78.6667" height="44"/>
   <object id="44" x="12" y="6.66667" width="121.333" height="24"/>
   <object id="45" x="222.667" y="32" width="64" height="36"/>
@@ -80,7 +80,7 @@
   <object id="70" x="381.333" y="420" width="33.3333" height="22.6667"/>
   <object id="71" x="412" y="377.333" width="10.6667" height="21.3333"/>
  </objectgroup>
- <layer name="arboles" width="20" height="20" visible="0">
+ <layer name="arboles" width="20" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -104,8 +104,8 @@
 0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
 </data>
  </layer>
- <objectgroup name="obj_arboles" visible="0"/>
- <layer name="casas" width="20" height="20" visible="0">
+ <objectgroup name="obj_arboles"/>
+ <layer name="casas" width="20" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -129,7 +129,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="obj_casa" visible="0">
+ <objectgroup name="obj_casa">
   <object id="5" x="1.33333" y="62.6667" width="26.6667" height="97.3334"/>
   <object id="10" x="517.334" y="382.666" width="124" height="92"/>
   <object id="11" x="-4.00033" y="352" width="38.6667" height="96"/>
@@ -141,7 +141,7 @@
   <object id="78" x="404" y="474.667" width="28" height="33.3333"/>
   <object id="79" x="384" y="514.667" width="157.333" height="92"/>
  </objectgroup>
- <layer name="png" width="20" height="20" visible="0">
+ <layer name="png" width="20" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -165,7 +165,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#00ff00" name="obj_cambio_mapa" visible="0">
+ <objectgroup color="#00ff00" name="obj_cambio_mapa">
   <object id="36" x="4" y="452" width="30.6667" height="184"/>
   <object id="39" x="2.66633" y="30.6667" width="29.3333" height="30.6666"/>
   <object id="41" x="0.000333333" y="166.666" width="29.3333" height="176"/>
