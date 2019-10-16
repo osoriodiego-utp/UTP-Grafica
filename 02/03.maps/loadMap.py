@@ -20,7 +20,7 @@ def uploadMap(name):
     tileWidth = data["tilewidth"]
     tileHeight = data["tileheight"]
  
-    mapWidth = data["widht"]
+    mapWidth = data["width"]
     mapHeight =data["height"]
  
     #obtener mapa
@@ -37,7 +37,9 @@ def uploadMap(name):
     print(mapa)
  
 # = = = = = = = = = = = = = = = = = =
- 
+
+#def mapMatrix()
+
 def arrayTileset(img):
     pass 
  
@@ -51,7 +53,7 @@ def main():
     clock = pygame.time.Clock()
  
     img = pygame.image.load("./tileset.png")
-    uploadMap("map1")
+    uploadMap("mapa_simple")
     while True:
         time = clock.tick(60)
  
