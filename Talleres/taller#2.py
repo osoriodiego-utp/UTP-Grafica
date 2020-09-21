@@ -4,8 +4,7 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-print("Taller #2 - Trabajando con matrices.")
-
+print("\nTALLER #2 - Trabajando con matrices.")
 
 # 1. Crear una matriz de numero reales 2x4:
 # M=  |0 2 4 6|
@@ -23,6 +22,7 @@ archivo = open('matriz.mat', 'w')   # <== escritura
 archivo.write(matrix_string)
 archivo = open('matriz.mat', 'r')   # <== lectura
 matrix2 = np.matrix(archivo.readline())
+print("\nMatriz leida desde \'matriz.mat\ '\n", matrix2)
 
 
 # Por ultimo selecciona la segunda fila, la cuarta columna y las submatriz
