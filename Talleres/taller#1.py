@@ -80,12 +80,8 @@ for i in range(0, len(c)):
 print("14. ", vector_siete)
 
 # 15) Determine la moda del vector C
-# moda = []
-# for i in c:
-#     apariciones = c.sum(i)
-#     if apariciones == repeticiones and i not in moda:
-#         moda.append(i)
-print("15. ")
+moda = np.bincount(a)
+print("15. ", np.argmax(moda))
 
 # 16) Ordene el Vector C de menor a mayor
 vector_ordenado = sorted(c)
