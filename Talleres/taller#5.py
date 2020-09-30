@@ -9,7 +9,7 @@
 # de ajuste(permite aumentar o disminuir el brillo), la función debe retornar la 
 # imagen con el brillo deseado deacuerdo alcanal y al factor de ajuste.
 
-# 3.Elaborar una función a la que se le envié de una imagen y unfactorde contraste, 
+# 3.Elaborar una función a la que se le envié de una imagen y un factorde contraste, 
 # la función debe retornar la imagen con el contraste deseado deacuerdo al factor 
 # de contraste.
 

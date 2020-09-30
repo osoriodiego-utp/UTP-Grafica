@@ -4,9 +4,17 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-print("Taller #3 - Graficando funciones...sen(x), cos(x), tan(X) y transformadas.")
+print("\TALLER #3 - Graficando funciones...sen(x), cos(x), tan(X) y transformadas.")
 
 # 0. Preliminares
+
+
+def to_rad(c):
+    return(c*math.pi/180)
+
+
+def to_deg(r):
+    return(r*180/math.pi)
 
 
 def factorial(n):
@@ -110,15 +118,31 @@ while(i < puntos):
 # -Triangular(mitriangular())
 
 
+# def micuadrada(t):
+#     pi = 3.141592653589793
+#     T = 2*pi
+#     n = 1
+#     sumatoria = 0
+#     termino = 0
+#     aportemin = 0.00001
+#     while(True):
+#         termino = ((1/n) * (math.sin(2*pi*n*t/T)))
+#         sumatoria = sumatoria+termino
+#         n = n+1
+#         if(math.fabs(termino) < aportemin):
+#             break
+#         return ((4/pi)*sumatoria)
+
+
 def micuadrada(t):
-    T = 10
-    n = 1
     pi = 3.141592653589793
+    T = 2*pi
+    n = 1
     sumatoria = 0
     termino = 0
     aportemin = 0.00001
     while(True):
-        termino = ((1/n) * (math.sin(2*pi*n*t/T)))
+        termino = ((1/n) * (to_deg(math.sin(2*pi*n*t/T))))
         sumatoria = sumatoria+termino
         n = n+1
         if(math.fabs(termino) < aportemin):
