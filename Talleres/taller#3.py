@@ -118,22 +118,6 @@ while(i < puntos):
 # -Triangular(mitriangular())
 
 
-# def micuadrada(t):
-#     pi = 3.141592653589793
-#     T = 2*pi
-#     n = 1
-#     sumatoria = 0
-#     termino = 0
-#     aportemin = 0.00001
-#     while(True):
-#         termino = ((1/n) * (math.sin(2*pi*n*t/T)))
-#         sumatoria = sumatoria+termino
-#         n = n+1
-#         if(math.fabs(termino) < aportemin):
-#             break
-#         return ((4/pi)*sumatoria)
-
-
 def micuadrada(t):
     pi = 3.141592653589793
     T = 2*pi
