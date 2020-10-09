@@ -5,7 +5,7 @@
 import sys, math
 import pygame
 from pygame.locals import *
-# import numpy as np
+import numpy as np
 
 from color import *
 
@@ -50,8 +50,7 @@ def draw_line_dda(p_start, p_end):
 
 
 # recorrido = [(9.40, 3.42), (9.71, 7.05), (-6.93, 4.00), (-18.00, 0.00), (-10.50, -21.26)]
-recorrido = [(00.00, 00.00), (90.40, 30.42), (90.71, 70.05), (-60.93, 40.00), (-180.00, 00.00), (-100.50, -210.26)]
-
+recorrido = [(90.40, 30.42), (90.71, 70.05), (-60.93, 40.00), (-180.00, 00.00), (-100.50, -210.26)]
 
 while True:
 
@@ -62,15 +61,25 @@ while True:
     # Ejes x/y
     pygame.draw.line(ventana, color.blanco, (CX, 0), (CX, Y), 2)
     pygame.draw.line(ventana, color.blanco, (0, CY), (X, CY), 2)
-    
-    # for pos in recorrido:
-        # draw_punto(to_cart(pos))
-    #     print (pos) 
 
-    for i in range(0, len(recorrido)-1):
-        pygame.draw.line(ventana, color.amarillo, to_cart(recorrido[i]), to_cart(recorrido[i+1]), 1)
-        draw_punto(to_cart(recorrido[i+1]))
-        print(recorrido[i])
+    # Recorrido
+    # for i in range(0, len(recorrido)-1):
+    #     pygame.draw.line(ventana, color.amarillo, to_cart(recorrido[i]), to_cart(recorrido[i+1]), 1)
+    #     draw_punto(to_cart(recorrido[i+1]))
+    #     print(recorrido[i])
+
+    pos_i = (0.0, 0.0)
+    for i in range(0, len(recorrido)):
+        pos_f = (pos_i[0]+recorrido[i][0], pos_i[1] + recorrido[i][1])
+
+        pygame.draw.line(ventana, color.amarillo, to_cart(pos_i), to_cart(pos_f), 1)
+        # draw_punto(to_cart(recorrido[i+1]))
+        pos_i = pos_f
+        new_pos = ()
+        print(pos_i)
+
+    # Vector resultado
+    pygame.draw.line(ventana, color.rojo, to_cart((0,0)), to_cart((-160.30, -70.13)), 1)
     
     pygame.display.flip()
 
