@@ -63,6 +63,31 @@ def draw_rectangle_filled(p_start, p_end):
             draw_point([x,y])
 
 
+def draw_circle(xc, yc, x, y):
+    draw_point((xc+x, yc+y))
+    draw_point((xc-x, yc+y))
+    draw_point((xc+x, yc-y))
+    draw_point((xc-x, yc-y))
+    draw_point((xc+y, yc+x))
+    draw_point((xc-y, yc+x))
+    draw_point((xc+y, yc-x))
+    draw_point((xc-y, yc-x))
+
+def draw_circle_bresenham(xc, yc, r):
+    x = 0
+    y = r
+    d = 3-2*r
+    draw_circle(xc, yc, x, y)
+    while(y>=x):
+        x=x+1
+        if(d>0):
+            y = y - 1
+            d = d + 4 * (x - y) + 10
+        else:
+            d = d + 4 * x + 6
+        draw_circle(xc, yc, x ,y)
+
+
 
 
 # ==== MAIN FUNCTION    ====
@@ -73,11 +98,11 @@ while True:
 
     center = (int(X/2), int(Y/2))
     
-    draw_line_dda(center, (400,400))
-
+    # draw_line_dda(center, (400,400))
     # draw_rectangle((100,200), (300, 400))
-    draw_rectangle_filled((100,200), (300, 400))
-
+    # draw_rectangle_filled((100,200), (300, 400))
+    # draw_circle(100, 200, 300, 400)
+    draw_circle_bresenham(center[0], center[1], 100)
 
     pygame.display.flip()
 pygame.quit()
