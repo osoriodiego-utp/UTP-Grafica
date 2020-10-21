@@ -22,13 +22,13 @@ def draw_point(point):
 
 # ==== DDA FN      ====
 def draw_line_dda(p_start, p_end):
-    xo = p_start[0]
-    yo = p_start[1]
-    xi = p_end[0]
-    yi = p_end[1]
+    xi = p_start[0]
+    yi = p_start[1]
+    xf = p_end[0]
+    yf = p_end[1]
 
-    dx = xi-xo
-    dy = yi-yo
+    dx = xf-xi
+    dy = yf-yi
 
     if(abs(dx) > abs(dy)):
         steps = dx
@@ -37,12 +37,11 @@ def draw_line_dda(p_start, p_end):
 
     x_increment = float(dx)/float(steps)
     y_increment = float(dy)/float(steps)
-
-
+    draw_point([int(round(xi)), int(round(yi))])
     for i in range(steps):
-        xo += x_increment
-        yo += y_increment
-        draw_point([int(round(xo)), int(round(yo))])
+        xi += x_increment
+        yi += y_increment
+        draw_point([int(round(xi)), int(round(yi))])
 
 
 # ==== MAIN FUNCTION    ====
@@ -56,9 +55,7 @@ while True:
             [300, 500], [100, 500], [100, 300], [100, 100]]
     
     for point in puntos:
-        # print(center, point)
         draw_line_dda(center, point)
-
 
     pygame.display.flip()
 pygame.quit()
