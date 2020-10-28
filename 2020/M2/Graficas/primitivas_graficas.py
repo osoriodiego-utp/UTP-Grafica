@@ -73,6 +73,7 @@ def draw_circle(xc, yc, x, y):
     draw_point((xc+y, yc-x))
     draw_point((xc-y, yc-x))
 
+
 def draw_circle_bresenham(xc, yc, r):
     x = 0
     y = r
@@ -88,6 +89,14 @@ def draw_circle_bresenham(xc, yc, r):
         draw_circle(xc, yc, x ,y)
 
 
+###################### F I G U R A S ######################
+def fig_uno(p_start, p_end):
+    x = p_end[0]-p_start[0]
+    y = p_end[1]-p_start[1]
+    draw_rectangle(p_start, p_end)
+    draw_rectangle_filled(p_start, (p_end[0], p_end[y]))
+    # draw_rectangle_filled((p_start[0]+x, p_end+y), p_end)
+
 
 
 # ==== MAIN FUNCTION    ====
@@ -102,7 +111,8 @@ while True:
     # draw_rectangle((100,200), (300, 400))
     # draw_rectangle_filled((100,200), (300, 400))
     # draw_circle(100, 200, 300, 400)
-    draw_circle_bresenham(center[0], center[1], 100)
+    # draw_circle_bresenham(center[0], center[1], 100)
+    fig_uno((100,100), (400,200))
 
     pygame.display.flip()
 pygame.quit()
