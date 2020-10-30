@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# https://www.cerotec.net/tabla-colores-web/
+# https://htmlcolorcodes.com/es/nombres-de-los-colores/
 #
 # To use: from color import *
 
@@ -86,6 +86,7 @@ class color(object):
 	carcel = 0, 128, 128
 
 	#AZULES
+	azul = 52, 54, 255
 
 	#MARRONES
 
@@ -110,4 +111,6 @@ class color(object):
 	palo_de_rosa = 255, 228, 225
 
 	#NEGRO
+	gris = 128, 128, 128
+	plata = 192,192,192
 	negro = 0, 0, 0
