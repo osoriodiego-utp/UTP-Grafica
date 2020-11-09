@@ -26,7 +26,30 @@ def draw_axes():
 
 # ==== (1.0) ROBOT      ====
 def draw_robot():
+    #Head
+    pygame.draw.circle(ventana, color.gris, (200, 37), 10, 1)
+    pygame.draw.rect(ventana, color.gris, [195, 45, 12, 30], 1)
     pygame.draw.rect(ventana, color.gris, [150, 75, 100, 50], 1)
+    pygame.draw.rect(ventana, color.gris, [175, 125, 50, 14], 1)
+    #Trunk
+    pygame.draw.rect(ventana, color.gris, [150, 162, 100, 38], 1)
+    pygame.draw.rect(ventana, color.gris, [125, 138, 150, 138], 1)
+    pygame.draw.circle(ventana, color.gris, (175, 250), 6, 1)
+    pygame.draw.circle(ventana, color.gris, (200, 250), 6, 1)
+    pygame.draw.circle(ventana, color.gris, (225, 250), 6, 1)
+    #Arms
+    pygame.draw.rect(ventana, color.gris, [75, 175, 25, 75], 1)
+    pygame.draw.rect(ventana, color.gris, [300, 175, 25, 75], 1)
+    #Legs
+    pygame.draw.rect(ventana, color.gris, [150, 275, 25, 75], 1)
+    pygame.draw.line(ventana, color.gris, (175, 350), (175, 375), 1)
+    pygame.draw.line(ventana, color.gris, (175, 375), (125, 375), 1)
+    pygame.draw.line(ventana, color.gris, (125, 375), (175, 350), 1)
+    pygame.draw.rect(ventana, color.gris, [225, 275, 25, 75], 1)
+    pygame.draw.line(ventana, color.gris, (225, 350), (275, 375), 1)
+    pygame.draw.line(ventana, color.gris, (275, 375), (225, 375), 1)
+    pygame.draw.line(ventana, color.gris, (225, 375), (225, 350), 1)
+
 
 
 # ==== (1.0) TORRE      ====
@@ -169,13 +192,13 @@ while True:
         if event.type == QUIT:
             sys.exit(0)
     
-    draw_axes()
 
     draw_robot()
     draw_tower()
     draw_squares_c()
     draw_squares_s()
 
+    draw_axes()
 
     pygame.display.flip()
 pygame.quit()
