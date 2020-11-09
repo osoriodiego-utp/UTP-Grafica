@@ -102,7 +102,7 @@ while True:
                     print("changed to \'azul\'")
 
             if(y>140 and y<195):
-                if event.type == MOUSEBUTTONDOWN:
+                if event.type == MOUSEBUTTONUP:
                     color_figura = "rojo"
                     print("changed to \'rojo\'")
 
