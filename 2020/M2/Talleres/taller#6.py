@@ -26,10 +26,58 @@ def draw_axes():
 
 # ==== (1.0) ROBOT      ====
 def draw_robot():
-    pass
+    pygame.draw.rect(ventana, color.gris, [150, 75, 100, 50], 1)
+
+
 # ==== (1.0) TORRE      ====
 def draw_tower():
-    pass
+    #Base
+    pygame.draw.line(ventana, color.gris, (450, 375), (750, 375), 1)
+
+    #Tower (techo)
+    pygame.draw.line(ventana, color.gris, (575, 125), (650, 50), 1)
+    pygame.draw.line(ventana, color.gris, (650, 50), (725, 125), 1)
+    pygame.draw.line(ventana, color.gris, (575, 125), (650, 100), 1)
+    pygame.draw.line(ventana, color.gris, (650, 100), (725, 125), 1)
+    pygame.draw.line(ventana, color.gris, (575, 125), (600, 150), 1)
+    pygame.draw.line(ventana, color.gris, (600, 150), (650, 125), 1)
+    pygame.draw.line(ventana, color.gris, (650, 125), (700, 150), 1)
+    pygame.draw.line(ventana, color.gris, (650, 50), (650, 125), 1)
+    pygame.draw.line(ventana, color.gris, (700, 150), (725, 125), 1)
+    #Tower (cajón)
+    pygame.draw.line(ventana, color.gris, (600, 150), (587, 250), 1)
+    pygame.draw.line(ventana, color.gris, (650, 125), (650, 375), 1)
+    pygame.draw.line(ventana, color.gris, (700, 150), (725, 375), 1)
+    #V1
+    #V2
+    pygame.draw.line(ventana, color.gris, (665, 150), (680, 155), 1)
+    pygame.draw.line(ventana, color.gris, (680, 155), (685, 185), 1)
+    pygame.draw.line(ventana, color.gris, (685, 185), (665, 180), 1)
+    pygame.draw.line(ventana, color.gris, (665, 180), (665, 150), 1)
+    #V3
+    #V4
+    pygame.draw.line(ventana, color.gris, (665, 200), (685, 205), 1)
+    pygame.draw.line(ventana, color.gris, (685, 205), (690, 255), 1)
+    pygame.draw.line(ventana, color.gris, (690, 255), (665, 250), 1)
+    pygame.draw.line(ventana, color.gris, (665, 250), (665, 200), 1)
+    #V5
+    #V6
+    pygame.draw.line(ventana, color.gris, (665, 275), (690, 280), 1)
+    pygame.draw.line(ventana, color.gris, (690, 280), (695, 335), 1)
+    pygame.draw.line(ventana, color.gris, (695, 335), (665, 330), 1)
+    pygame.draw.line(ventana, color.gris, (665, 330), (665, 275), 1)
+
+    #House (techo)
+    pygame.draw.line(ventana, color.gris, (475, 250), (600, 250), 1)
+    pygame.draw.line(ventana, color.gris, (475, 250), (450, 300), 1)
+    pygame.draw.line(ventana, color.gris, (475, 250), (500, 300), 1)
+    pygame.draw.line(ventana, color.gris, (600, 250), (625, 300), 1)
+    pygame.draw.line(ventana, color.gris, (450, 300), (625, 300), 1)
+    #House (cajón)
+    pygame.draw.line(ventana, color.gris, (450, 300), (450, 375), 1)
+    pygame.draw.line(ventana, color.gris, (500, 300), (500, 375), 1)
+    pygame.draw.line(ventana, color.gris, (625, 300), (625, 375), 1)
+
 
 # ==== (1.5) CUADROS1   ====
 def draw_squares_s():
@@ -91,7 +139,29 @@ def draw_squares_s():
 
 # ==== (1.5) CUADROS2   ====
 def draw_squares_c():
-    pass
+    #Axes
+    pygame.draw.line(ventana, color.gris, (500, 400), (500, 800), 1)
+    pygame.draw.line(ventana, color.gris, (600, 400), (600, 800), 1)
+    pygame.draw.line(ventana, color.gris, (700, 400), (700, 800), 1)
+    pygame.draw.line(ventana, color.gris, (400, 500), (800, 500), 1)
+    pygame.draw.line(ventana, color.gris, (400, 600), (800, 600), 1)
+    pygame.draw.line(ventana, color.gris, (400, 700), (800, 700), 1)
+
+    #R1
+    pygame.draw.line(ventana, color.gris, (416, 400), (400, 416), 1)
+    pygame.draw.line(ventana, color.gris, (432, 400), (400, 433), 1)
+    pygame.draw.line(ventana, color.gris, (448, 400), (400, 448), 1)
+    pygame.draw.line(ventana, color.gris, (464, 400), (400, 464), 1)
+    pygame.draw.line(ventana, color.gris, (480, 400), (400, 480), 1)
+    pygame.draw.line(ventana, color.gris, (500, 400), (600, 500), 3)
+    pygame.draw.line(ventana, color.gris, (600, 500), (500, 600), 3)
+    pygame.draw.line(ventana, color.gris, (500, 600), (400, 500), 3)
+    pygame.draw.line(ventana, color.gris, (400, 500), (500, 400), 3)
+
+
+    #R2
+    #R3
+    #R4
 
 # ==== MAIN FUNCTION    ====
 while True:
