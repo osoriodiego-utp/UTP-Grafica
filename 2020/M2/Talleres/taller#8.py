@@ -134,15 +134,22 @@ def figure_palette():
     draw_circle_bresenham(color.plata, 37, 232, 18)
     
     draw_rectangle_filled(color.blanco, (10, 270), (65, 325))
-    #draw_right_triangle
+    pygame.draw.line(ventana, color.plata, (35, 275), (60, 320), 3)
+    pygame.draw.line(ventana, color.plata, (15, 320), (60, 320), 3)
+    pygame.draw.line(ventana, color.plata, (15, 320), (35, 275), 3)
 
     draw_rectangle_filled(color.blanco, (10, 335), (65, 390))
-    #draw_equilateral_triangle
+    pygame.draw.line(ventana, color.plata, (15, 340), (60, 385), 3)
+    pygame.draw.line(ventana, color.plata, (15, 385), (60, 385), 3)
+    pygame.draw.line(ventana, color.plata, (15, 385), (15, 340), 3)
     
     draw_rectangle_filled(color.blanco, (10, 400), (65, 455))
     #draw_pentagon
 
-    # draw_rectangle_filled(color.blanco, (10, 465), (65, 520))
+    draw_rectangle_filled(color.blanco, (10, 465), (65, 520))
+    pygame.draw.line(ventana, color.negro, (20, 506), (55, 506), 2)
+    pygame.draw.line(ventana, color.plata, (15, 470), (55, 505), 10)
+
 
 def color_palette():
     pygame.draw.rect(ventana, color.gris, (725, 0, 800, 600))
@@ -171,6 +178,8 @@ def draw_figure(figure, color_figure, p_start, p_end):
     if(figure == "equilateral_triangle"):
         pygame.draw.circle(ventana, color.blanco, (x, y), 4, 4)
     if(figure == "pentagon"):
+        pygame.draw.circle(ventana, color.blanco, (x, y), 4, 4)
+    if(figure == "pencil"):
         pygame.draw.circle(ventana, color.blanco, (x, y), 4, 4)
 
 def color_select(x, y):
@@ -209,7 +218,9 @@ def figure_select(x, y):
         value = "equilateral_triangle"
     if(y > 400 and y < 455):
         value = "pentagon"
-    if(y > 450):
+    if(y > 465 and y < 520):
+        value = "pencil"
+    if(y > 520):
         return
     return value
 
@@ -228,29 +239,39 @@ def main():
     cont = 0
     p1 = ()
     p2 = ()
+    x = 0
+    y = 0
 
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit(0)
 
+            if(fig=="pencil"): #pencil_draw_area
+                if event.type == pygame.MOUSEMOTION:
+                    end = pygame.mouse.get_pos()
+                    if(pygame.mouse.get_pressed() == (1,0,0)):
+                        draw_line_bres(col, start, end)
+                    start=end
+
             if event.type == MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-                
+             
                 if(x < 75):  # figure_palette
                     fig = figure_select(x,y)
                     print(f"Figure changed to {fig}")
                     cont = 0
 
-                if(x>75 and x<725): #draw_area
+                if(x>75 and x<725 and fig !="pencil"): #draw_area
                     if(cont < 2):
                         if(cont == 0):
                             p1 = (x,y)
-                            # print(f"DIBUJO desde {p1}")
+                            # print(f"Dibujar desde {p1}")
                         if(cont == 1):
                             p2 = pygame.mouse.get_pos()
+                            # print(f"Dibujar hasta {p2}")
                             print(f"Draw {fig} from {p1} to {p2}")
-                            draw_figure(fig, col, p1, p2)
+                            draw_figure(fig, col, p1, p2)                   
                         cont +=1
                         if(cont == 2):
                             cont = 0
