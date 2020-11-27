@@ -15,6 +15,31 @@ ventana = pygame.display.set_mode((X, Y))
 pygame.display.set_caption("GAME.PY")
 screen = pygame.display.set_mode((X, Y))
 
+matrix = np.matrix('"","","";"","","";"","",""')
+
+
+def is_winner(m):
+    # Columns
+    if(m[0, 0] != "" and m[0, 0] == m[0, 1] == m[0, 2]):
+        return True
+    elif(m[1, 0] != "" and m[1, 0] == m[1, 1] == m[1, 2]):
+        return True
+    elif(m[2, 0] != "" and m[2, 0] == m[2, 1] == m[2, 2]):
+        return True
+    # Rows
+    elif(m[0, 0] != "" and m[0, 0] == m[1, 0] == m[2, 0]):
+        return True
+    elif(m[0, 1] != "" and m[0, 1] == m[1, 1] == m[2, 1]):
+        return True
+    elif(m[0, 2] != "" and m[0, 2] == m[1, 2] == m[2, 2]):
+        return True
+    # Diagonals
+    elif(m[0, 0] != "" and m[0, 0] == m[1, 1] == m[2, 2]):
+        return True
+    elif(m[0, 2] != "" and m[0, 2] == m[1, 1] == m[2, 0]):
+        return True
+    return False
+
 
 def start():
     startBackground = pygame.image.load("assets/img/loading_bar.png")
@@ -47,48 +72,72 @@ def menu():
                     sys.exit(0)
     pygame.display.update()
 
-   
+
+def can_move(x, y):
+    if(y > 35 and y < 176 and x > 45 and x < 178 and matrix[0, 0] == ""):
+        return True
+    elif(y > 35 and y < 176 and x > 178 and x < 308 and matrix[0, 1] == ""):
+        return True
+    elif(y > 35 and y < 176 and x > 308 and x < 456 and matrix[0, 2] == ""):
+        return True
+    elif(y > 176 and y < 295 and x > 45 and x < 178 and matrix[1, 0] == ""):
+        return True
+    elif(y > 176 and y < 295 and x > 178 and x < 308 and matrix[1, 1] == ""):
+        return True
+    elif(y > 176 and y < 295 and x > 308 and x < 456 and matrix[1, 2] == ""):
+        return True
+    elif(y > 295 and y < 395 and x > 45 and x < 178 and matrix[2, 0] == ""):
+        return True
+    elif(y > 295 and y < 395 and x > 178 and x < 308 and matrix[2, 1] == ""):
+        return True
+    elif(y > 295 and y < 395 and x > 308 and x < 456 and matrix[2, 2] == ""):
+        return True
+    return False
+    
+
+
 def move(player, x, y):
     if(player == "X"):
-        print("load X")
         figure = pygame.image.load("assets/img/cross.png")
     if(player == "O"):
-        print("load O")
         figure = pygame.image.load("assets/img/circle.png")
 
     if(y > 35 and y < 176):
         if(x > 45 and x < 178):
-            print(f"{player} in C1")
-            screen.blit(figure, (45,35))
+            screen.blit(figure, (45, 35))
+            matrix[0, 0] = player
         if(x > 178 and x < 308):
-            print(f"{player} in C2")
-            screen.blit(figure, (178,35))
+            screen.blit(figure, (178, 35))
+            matrix[0, 1] = player
         if(x > 308 and x < 456):
-            print(f"{player} in C3")
-            screen.blit(figure, (308,35))
+            screen.blit(figure, (308, 35))
+            matrix[0, 2] = player
     if(y > 176 and y < 295):
         if(x > 45 and x < 178):
-            print(f"{player} in C4")
-            screen.blit(figure, (45,176))
+            screen.blit(figure, (45, 176))
+            matrix[1, 0] = player
         if(x > 178 and x < 308):
-            print(f"{player} in C5")
-            screen.blit(figure, (178,176))
+            screen.blit(figure, (178, 176))
+            matrix[1, 1] = player
         if(x > 308 and x < 456):
-            print(f"{player} in C6")
-            screen.blit(figure, (308,176))
+            screen.blit(figure, (308, 176))
+            matrix[1, 2] = player
     if(y > 295 and y < 395):
         if(x > 45 and x < 178):
-            print(f"{player} in C7")
-            screen.blit(figure, (45,295))
+            screen.blit(figure, (45, 295))
+            matrix[2, 0] = player
         if(x > 178 and x < 308):
-            print(f"{player} in C8")
-            screen.blit(figure, (178,295))
+            screen.blit(figure, (178, 295))
+            matrix[2, 1] = player
         if(x > 308 and x < 456):
-            print(f"{player} in C9")
-            screen.blit(figure, (308,295))
+            screen.blit(figure, (308, 295))
+            matrix[2, 2] = player
+    print(matrix)
+    if(is_winner(matrix)):
+        print(f"WINNER: {player}")
 
 
-def change(player):
+def change_player(player):
     if(player == "X"):
         return "O"
     else:
@@ -108,8 +157,12 @@ def play():
                 x, y = event.pos
                 # TIC-TAC-TOE
                 if(x > 45 and x < 456 and y > 35 and y < 395):
-                    move(player, x, y)
-                    player = change(player)
+                    if(can_move(x, y)):
+                        print("MOVE")
+                        move(player, x, y)
+                        player = change_player(player)
+                    else:
+                        print("DONT MOVE")
                 # BUTTONS
                 if(x > 24 and x < 124 and y > 424 and y < 474):
                     print("HOME")
