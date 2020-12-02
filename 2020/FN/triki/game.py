@@ -48,6 +48,10 @@ def start():
     time.sleep(1)
 
 
+def restart():
+    print("Matrix restarted")
+
+
 def menu():
     menuBackground = pygame.image.load("assets/img/home.png")
     screen.blit(menuBackground, (0, 0))
@@ -63,12 +67,12 @@ def menu():
                     play()
                 if(x > 142 and x < 242 and y > 424 and y < 474):
                     print("HELP")
-                    # help()
+                    help()
                 if(x > 262 and x < 362 and y > 424 and y < 474):
                     print("ABOUT")
                     about()
                 if(x > 378 and x < 478 and y > 424 and y < 474):
-                    print("BYE...")
+                    print("EXIT")
                     sys.exit(0)
     pygame.display.update()
 
@@ -93,7 +97,6 @@ def can_move(x, y):
     elif(y > 295 and y < 395 and x > 308 and x < 456 and matrix[2, 2] == ""):
         return True
     return False
-    
 
 
 def move(player, x, y):
@@ -132,9 +135,9 @@ def move(player, x, y):
         if(x > 308 and x < 456):
             screen.blit(figure, (308, 295))
             matrix[2, 2] = player
+    pygame.display.update()
+    print("==========")
     print(matrix)
-    if(is_winner(matrix)):
-        print(f"WINNER: {player}")
 
 
 def change_player(player):
@@ -145,10 +148,12 @@ def change_player(player):
 
 
 def play():
-    gameBackground = pygame.image.load("assets/img/game.png")
+    restart()
+    gameBackground = pygame.image.load("assets/img/game.jpg")
     screen.blit(gameBackground, (0, 0))
     pygame.display.update()
     player = "X"
+    player_win = False
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -157,30 +162,51 @@ def play():
                 x, y = event.pos
                 # TIC-TAC-TOE
                 if(x > 45 and x < 456 and y > 35 and y < 395):
-                    if(can_move(x, y)):
-                        print("MOVE")
+                    if(can_move(x, y) and player_win == False):
                         move(player, x, y)
+                        if(is_winner(matrix)):
+                            player_win = True
+                            print(f"WINNER: {player}")
+                            winner(player)
                         player = change_player(player)
-                    else:
-                        print("DONT MOVE")
                 # BUTTONS
                 if(x > 24 and x < 124 and y > 424 and y < 474):
                     print("HOME")
                     menu()
                 if(x > 142 and x < 242 and y > 424 and y < 474):
                     print("HELP")
-                    # help()
+                    help()
                 if(x > 262 and x < 362 and y > 424 and y < 474):
                     print("ABOUT")
                     about()
                 if(x > 378 and x < 478 and y > 424 and y < 474):
-                    print("BYE...")
+                    print("EXIT")
                     sys.exit(0)
-                # print(f"Click on: {(x, y)}")
 
 
 def help():
-    print("Open help window")
+    helpBackground = pygame.image.load("assets/img/help.png")
+    screen.blit(helpBackground, (0, 0))
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                sys.exit(0)
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                x, y = event.pos
+                if(x > 24 and x < 124 and y > 424 and y < 474):
+                    print("BACK")
+                    menu()
+                if(x > 142 and x < 242 and y > 424 and y < 474):
+                    print("PLAY")
+                    play()
+                if(x > 262 and x < 362 and y > 424 and y < 474):
+                    print("ABOUT")
+                    about()
+                if(x > 378 and x < 478 and y > 424 and y < 474):
+                    print("EXIT")
+                    sys.exit(0)
+    pygame.display.update()
 
 
 def about():
@@ -203,16 +229,44 @@ def about():
                     print("HELP")
                     help()
                 if(x > 378 and x < 478 and y > 424 and y < 474):
-                    print("BYE...")
+                    print("EXIT")
                     sys.exit(0)
     pygame.display.update()
 
-    print("\tJuego creado para la clase de \n\tcomputación gráfica.")
-    print("\tDiego Osorio López.")
-    print("\tFacultad de Ingenierías. \n\tUTP 2020-2")
+
+def winner(player):
+    if(player == "X"):
+        figure = pygame.image.load("assets/img/cross.png")
+    if(player == "O"):
+        figure = pygame.image.load("assets/img/circle.png")
+    
+    winnerBackground = pygame.image.load("assets/img/winner.png")
+    screen.blit(winnerBackground, (0, 0))
+    pygame.display.update()
+    screen.blit(figure, (200,200))
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                sys.exit(0)
+            if (event.type == pygame.MOUSEBUTTONDOWN):
+                x, y = event.pos
+                if(x > 24 and x < 124 and y > 424 and y < 474):
+                    print("PLAY")
+                    play()
+                if(x > 142 and x < 242 and y > 424 and y < 474):
+                    print("HELP")
+                    help()
+                if(x > 262 and x < 362 and y > 424 and y < 474):
+                    print("ABOUT")
+                    about()
+                if(x > 378 and x < 478 and y > 424 and y < 474):
+                    print("EXIT")
+                    sys.exit(0)
+    pygame.display.update()
 
 
-def main():
+if __name__ == "__main__":
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -222,7 +276,3 @@ def main():
 
         pygame.display.flip()
     pygame.quit()
-
-
-if __name__ == "__main__":
-    main()
