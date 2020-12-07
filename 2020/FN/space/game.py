@@ -139,13 +139,24 @@ class invader(pygame.sprite.Sprite):
 
 
 def load_enemies():
-    enemy_1 = invader(100, 100, 100, "assets/images/marciano_1a.jpg", "assets/images/marciano_1b.jpg")
-    enemy_list.append(enemy_1)
-    enemy_2 = invader(350, 100, 100, "assets/images/marciano_2a.jpg", "assets/images/marciano_2b.jpg")
-    enemy_list.append(enemy_2)
-    enemy_3 = invader(700, 100, 100, "assets/images/marciano_3a.jpg", "assets/images/marciano_3b.jpg")
-    enemy_list.append(enemy_3)
+    posx = 100
+    for i in range(1, 5):
+        enemy_1 = invader(posx, 100, 40, "assets/images/marciano_1a.jpg", "assets/images/marciano_1b.jpg")
+        enemy_list.append(enemy_1)
+        posx = posx +200
 
+    posx = 100
+    for i in range(1, 5):
+        enemy_2 = invader(posx, 0, 40, "assets/images/marciano_2a.jpg", "assets/images/marciano_2b.jpg")
+        enemy_list.append(enemy_2)
+        posx = posx +200
+
+    posx = 100
+    for i in range(1, 5):
+        enemy_3 = invader(posx, -100, 40, "assets/images/marciano_3a.jpg", "assets/images/marciano_3b.jpg")
+        enemy_list.append(enemy_3)
+        posx = posx +200
+        
 
 def space_invaders():
     pygame.init()
@@ -191,20 +202,37 @@ def space_invaders():
             for shoot in player.shoot_list:
                 shoot.draw(screen)
                 shoot.trajectory()
-                if(shoot.rect.top < 0):
+
+                if(shoot.rect.top < -10):
                     player.shoot_list.remove(shoot)
+                else:
+                    for enemy in enemy_list:
+                        if(shoot.rect.colliderect(enemy.rect)):
+                            enemy_list.remove(enemy)
+                            player.shoot_list.remove(shoot)
 
         if(len(enemy_list)>0):
             for enemy in enemy_list:
                 enemy.move(play_time)
                 enemy.draw(screen)
 
-            if(len(enemy.shoot_list) > 0):
-                for shoot in enemy.shoot_list:
-                    shoot.draw(screen)
-                    shoot.trajectory()
-                    if(shoot.rect.top > 900):
-                        enemy.shoot_list.remove(shoot)
+                if enemy.rect.colliderect(player.rect):
+                    pass
+
+                if(len(enemy.shoot_list) > 0):
+                    for e_shoot in enemy.shoot_list:
+                        e_shoot.draw(screen)
+                        e_shoot.trajectory()
+                        if(e_shoot.rect.colliderect(player.rect)):
+                            pass
+                        if(e_shoot.rect.top > 900):
+                            enemy.shoot_list.remove(e_shoot)
+                        else:
+                            #Eliminar proyectiles que chocan
+                            for p_shoot in player.shoot_list:
+                                if (e_shoot.rect.colliderect(p_shoot.rect)):
+                                    player.shoot_list.remove(p_shoot)
+                                    enemy.shoot_list.remove(e_shoot)
 
         pygame.display.update()
 
