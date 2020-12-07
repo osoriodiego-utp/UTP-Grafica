@@ -7,6 +7,7 @@ import time
 import pygame
 from pygame.locals import *
 import numpy as np
+from random import randint
 
 # GLOBALES
 X, Y = 900, 480
@@ -41,25 +42,28 @@ class space_ship(pygame.sprite.Sprite):
                 self.rect.right = X
 
     def shoot(self, x, y):
-        my_projectile = projectile(x, y)
-        self.shoot_list.append(my_projectile)
-        print("¡shoot!")
+        ship_projectile = projectile(x, y, "assets/disparo_a.jpg", True)
+        self.shoot_list.append(ship_projectile)
 
     def draw(self, surface):
         surface.blit(self.sprite_nave, self.rect)
 
 
 class projectile(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y):
+    def __init__(self, pos_x, pos_y, sprite_path, character):
         pygame.sprite.Sprite.__init__(self)
-        self.sprite_projectile = pygame.image.load("assets/disparo_a.jpg")
+        self.sprite_projectile = pygame.image.load(sprite_path)
         self.rect = self.sprite_projectile.get_rect()
         self.speed = 5
         self.rect.top = pos_y
         self.rect.left = pos_x
+        self.shooter = character
 
     def trajectory(self):
-        self.rect.top = self.rect.top - self.speed
+        if(self.shooter == True):
+            self.rect.top = self.rect.top - self.speed
+        else:
+            self.rect.top = self.rect.top + self.speed
 
     def draw(self, surface):
         surface.blit(self.sprite_projectile, self.rect)
@@ -77,21 +81,27 @@ class invader(pygame.sprite.Sprite):
         self.rect = self.sprite_invader.get_rect()
 
         self.shoot_list = []
+        self.shoot_range = 5
         self.speed = 20
         self.rect.top = pos_y
         self.rect.left = pos_x
         self.time_change = 1
 
-    def sprite_change(self, play_time):
-        # print(play_time)
-        print("Time to change: ", self.time_change)
+    def move(self, play_time):
+        self.shoot()
         if (play_time == self.time_change):
-            # print("CHANGETIME = PLAYTIME")
             self.sprite_selected += 1
             self.time_change += 1
 
             if self.sprite_selected > len(self.sprite_list)-1:
                 self.sprite_selected = 0
+
+    def shoot(self):
+        if(randint(0, 100) < self.shoot_range):
+            # self.shoot()
+            x, y = self.rect.center
+            invader_projectile = projectile(x, y, "assets/disparo_b.jpg", False)
+            self.shoot_list.append(invader_projectile)
 
     def draw(self, surface):
         self.sprite_invader = self.sprite_list[self.sprite_selected]
@@ -105,18 +115,14 @@ def space_invaders():
     background = pygame.image.load("assets/fondo.jpg")
 
     player = space_ship()
-    projectile_demo = projectile(int(X/2), Y-30)
+    enemy = invader(100, 100)
+    
+    refresh = pygame.time.Clock()
     playing = True
 
-    enemy = invader(100, 100)
-
-    refresh = pygame.time.Clock()
-
-    while True:
+    while playing:
         refresh.tick(60)
-        play_time = pygame.time.get_ticks()/1000
-
-        projectile_demo.trajectory()
+        play_time = round(pygame.time.get_ticks()/1000)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -134,8 +140,7 @@ def space_invaders():
                         player.shoot(x, y)
 
         screen.blit(background, (0, 0))
-        enemy.sprite_change(play_time)
-        print(play_time)
+        enemy.move(play_time)
         player.draw(screen)
         enemy.draw(screen)
 
@@ -143,9 +148,15 @@ def space_invaders():
             for shoot in player.shoot_list:
                 shoot.draw(screen)
                 shoot.trajectory()
-
                 if(shoot.rect.top < 0):
                     player.shoot_list.remove(shoot)
+
+        if(len(enemy.shoot_list) > 0):
+            for shoot in enemy.shoot_list:
+                shoot.draw(screen)
+                shoot.trajectory()
+                if(shoot.rect.top > 900):
+                    enemy.shoot_list.remove(shoot)
 
         pygame.display.update()
 
