@@ -78,29 +78,54 @@ class invader(pygame.sprite.Sprite):
         self.sprite_list = [self.sprite_marciano_a, self.sprite_marciano_b]
         self.sprite_selected = 0
         self.sprite_invader = self.sprite_list[self.sprite_selected]
+        self.time_to_change = 1
+
         self.rect = self.sprite_invader.get_rect()
+        self.rect.top = pos_y
+        self.rect.left = pos_x
 
         self.shoot_list = []
         self.shoot_range = 5
-        self.speed = 20
-        self.rect.top = pos_y
-        self.rect.left = pos_x
-        self.time_change = 1
+        self.speed = 10
+
+        self.horizontal_move = True
+        self.counter = 0
+        self.down = self.rect.top + 40
 
     def move(self, play_time):
+        #Disparar
         self.shoot()
-        if (play_time == self.time_change):
+        #Animación
+        if (play_time == self.time_to_change):
             self.sprite_selected += 1
-            self.time_change += 1
-
+            self.time_to_change += 1
             if self.sprite_selected > len(self.sprite_list)-1:
                 self.sprite_selected = 0
+        if(self.counter < 2):
+            #Movimiento horizontal
+            if(self.horizontal_move == True):
+                self.rect.left = self.rect.left + self.speed
+                if(self.rect.left > 800):
+                    self.horizontal_move = False
+                    self.counter += 1
+            else:
+                self.rect.left = self.rect.left - self.speed
+                if(self.rect.left < 0):
+                    self.horizontal_move = True
+        else:
+            #movimiento descendente
+            if(self.down == self.rect.top):
+                self.counter = 0
+                self.down = self.rect.top + 40
+            else:
+                self.rect.top += 1
+
 
     def shoot(self):
         if(randint(0, 100) < self.shoot_range):
-            # self.shoot()
             x, y = self.rect.center
-            invader_projectile = projectile(x, y, "assets/disparo_b.jpg", False)
+            invader_projectile = projectile(
+                x, y, "assets/disparo_b.jpg", False)
             self.shoot_list.append(invader_projectile)
 
     def draw(self, surface):
@@ -115,8 +140,8 @@ def space_invaders():
     background = pygame.image.load("assets/fondo.jpg")
 
     player = space_ship()
-    enemy = invader(100, 100)
-    
+    enemy = invader(100, 50)
+
     refresh = pygame.time.Clock()
     playing = True
 
