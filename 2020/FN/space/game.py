@@ -19,7 +19,7 @@ class space_ship(pygame.sprite.Sprite):
 
         self.sprite_nave = pygame.image.load("assets/nave.jpg")
         self.rect = self.sprite_nave.get_rect()
-        self.rect.centerx = X/2
+        self.rect.centerx = int(X/2)
         self.rect.centery = Y-30
         self.alive = True
         self.speed = 20
@@ -69,14 +69,33 @@ class invader(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.sprite_marciano_a = pygame.image.load("assets/marciano_a.jpg")
-        self.rect = self.sprite_marciano_a.get_rect()
+        self.sprite_marciano_b = pygame.image.load("assets/marciano_b.jpg")
+
+        self.sprite_list = [self.sprite_marciano_a, self.sprite_marciano_b]
+        self.sprite_selected = 0
+        self.sprite_invader = self.sprite_list[self.sprite_selected]
+        self.rect = self.sprite_invader.get_rect()
+
+        self.shoot_list = []
+        self.speed = 20
         self.rect.top = pos_y
         self.rect.left = pos_x
-        self.speed = 20
-        self.shoot_list = []
+        self.time_change = 1
+
+    def sprite_change(self, play_time):
+        # print(play_time)
+        print("Time to change: ", self.time_change)
+        if (play_time == self.time_change):
+            # print("CHANGETIME = PLAYTIME")
+            self.sprite_selected += 1
+            self.time_change += 1
+
+            if self.sprite_selected > len(self.sprite_list)-1:
+                self.sprite_selected = 0
 
     def draw(self, surface):
-        surface.blit(self.sprite_marciano_a, self.rect)
+        self.sprite_invader = self.sprite_list[self.sprite_selected]
+        surface.blit(self.sprite_invader, self.rect)
 
 
 def space_invaders():
@@ -86,7 +105,7 @@ def space_invaders():
     background = pygame.image.load("assets/fondo.jpg")
 
     player = space_ship()
-    projectile_demo = projectile(X/2, Y-30)
+    projectile_demo = projectile(int(X/2), Y-30)
     playing = True
 
     enemy = invader(100, 100)
@@ -95,7 +114,7 @@ def space_invaders():
 
     while True:
         refresh.tick(60)
-        # player.move()
+        play_time = pygame.time.get_ticks()/1000
 
         projectile_demo.trajectory()
 
@@ -115,6 +134,8 @@ def space_invaders():
                         player.shoot(x, y)
 
         screen.blit(background, (0, 0))
+        enemy.sprite_change(play_time)
+        print(play_time)
         player.draw(screen)
         enemy.draw(screen)
 
