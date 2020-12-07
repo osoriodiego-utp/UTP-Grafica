@@ -17,8 +17,9 @@ X, Y = 900, 480
 class space_ship(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+        self.sprite_nave = pygame.image.load("assets/images/nave.jpg")
+        self.shoot_sound = pygame.mixer.Sound("assets/sounds/shoot.ogg")
 
-        self.sprite_nave = pygame.image.load("assets/nave.jpg")
         self.rect = self.sprite_nave.get_rect()
         self.rect.centerx = int(X/2)
         self.rect.centery = Y-30
@@ -42,7 +43,8 @@ class space_ship(pygame.sprite.Sprite):
                 self.rect.right = X
 
     def shoot(self, x, y):
-        ship_projectile = projectile(x, y, "assets/disparo_a.jpg", True)
+        self.shoot_sound.play()
+        ship_projectile = projectile(x, y, "assets/images/disparo_a.jpg", True)
         self.shoot_list.append(ship_projectile)
 
     def draw(self, surface):
@@ -72,8 +74,8 @@ class projectile(pygame.sprite.Sprite):
 class invader(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.sprite_marciano_a = pygame.image.load("assets/marciano_a.jpg")
-        self.sprite_marciano_b = pygame.image.load("assets/marciano_b.jpg")
+        self.sprite_marciano_a = pygame.image.load("assets/images/marciano_a.jpg")
+        self.sprite_marciano_b = pygame.image.load("assets/images/marciano_b.jpg")
 
         self.sprite_list = [self.sprite_marciano_a, self.sprite_marciano_b]
         self.sprite_selected = 0
@@ -125,7 +127,7 @@ class invader(pygame.sprite.Sprite):
         if(randint(0, 100) < self.shoot_range):
             x, y = self.rect.center
             invader_projectile = projectile(
-                x, y, "assets/disparo_b.jpg", False)
+                x, y, "assets/images/disparo_b.jpg", False)
             self.shoot_list.append(invader_projectile)
 
     def draw(self, surface):
@@ -137,7 +139,10 @@ def space_invaders():
     pygame.init()
     screen = pygame.display.set_mode((X, Y))
     pygame.display.set_caption("Space Invaders")
-    background = pygame.image.load("assets/fondo.jpg")
+    background = pygame.image.load("assets/images/fondo.jpg")
+
+    pygame.mixer.music.load("assets/sounds/spaceship.ogg")
+    pygame.mixer.music.play()
 
     player = space_ship()
     enemy = invader(100, 50)
