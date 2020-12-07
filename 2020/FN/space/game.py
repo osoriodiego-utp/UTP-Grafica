@@ -11,6 +11,7 @@ from random import randint
 
 # GLOBALES
 X, Y = 900, 480
+enemy_list = []
 
 
 # CLASSES
@@ -72,10 +73,10 @@ class projectile(pygame.sprite.Sprite):
 
 
 class invader(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y):
+    def __init__(self, pos_x, pos_y, distance, img_1, img_2):
         pygame.sprite.Sprite.__init__(self)
-        self.sprite_marciano_a = pygame.image.load("assets/images/marciano_a.jpg")
-        self.sprite_marciano_b = pygame.image.load("assets/images/marciano_b.jpg")
+        self.sprite_marciano_a = pygame.image.load(img_1)
+        self.sprite_marciano_b = pygame.image.load(img_2)
 
         self.sprite_list = [self.sprite_marciano_a, self.sprite_marciano_b]
         self.sprite_selected = 0
@@ -94,34 +95,36 @@ class invader(pygame.sprite.Sprite):
         self.counter = 0
         self.down = self.rect.top + 40
 
+        self.limit_right = pos_x + distance
+        self.limit_left = pos_x - distance
+
     def move(self, play_time):
-        #Disparar
+        # Disparar
         self.shoot()
-        #Animación
+        # Animación
         if (play_time == self.time_to_change):
             self.sprite_selected += 1
             self.time_to_change += 1
             if self.sprite_selected > len(self.sprite_list)-1:
                 self.sprite_selected = 0
         if(self.counter < 2):
-            #Movimiento horizontal
+            # Movimiento horizontal
             if(self.horizontal_move == True):
                 self.rect.left = self.rect.left + self.speed
-                if(self.rect.left > 800):
+                if(self.rect.left > self.limit_right):
                     self.horizontal_move = False
                     self.counter += 1
             else:
                 self.rect.left = self.rect.left - self.speed
-                if(self.rect.left < 0):
+                if(self.rect.left < self.limit_left):
                     self.horizontal_move = True
         else:
-            #movimiento descendente
+            # movimiento descendente
             if(self.down == self.rect.top):
                 self.counter = 0
                 self.down = self.rect.top + 40
             else:
                 self.rect.top += 1
-
 
     def shoot(self):
         if(randint(0, 100) < self.shoot_range):
@@ -135,6 +138,15 @@ class invader(pygame.sprite.Sprite):
         surface.blit(self.sprite_invader, self.rect)
 
 
+def load_enemies():
+    enemy_1 = invader(100, 100, 100, "assets/images/marciano_1a.jpg", "assets/images/marciano_1b.jpg")
+    enemy_list.append(enemy_1)
+    enemy_2 = invader(350, 100, 100, "assets/images/marciano_2a.jpg", "assets/images/marciano_2b.jpg")
+    enemy_list.append(enemy_2)
+    enemy_3 = invader(700, 100, 100, "assets/images/marciano_3a.jpg", "assets/images/marciano_3b.jpg")
+    enemy_list.append(enemy_3)
+
+
 def space_invaders():
     pygame.init()
     screen = pygame.display.set_mode((X, Y))
@@ -145,7 +157,8 @@ def space_invaders():
     pygame.mixer.music.play()
 
     player = space_ship()
-    enemy = invader(100, 50)
+    # enemy_list = invader(100, 50)
+    load_enemies()
 
     refresh = pygame.time.Clock()
     playing = True
@@ -170,9 +183,9 @@ def space_invaders():
                         player.shoot(x, y)
 
         screen.blit(background, (0, 0))
-        enemy.move(play_time)
+        # enemy_list.move(play_time)
         player.draw(screen)
-        enemy.draw(screen)
+        # enemy_list.draw(screen)
 
         if(len(player.shoot_list) > 0):
             for shoot in player.shoot_list:
@@ -181,12 +194,17 @@ def space_invaders():
                 if(shoot.rect.top < 0):
                     player.shoot_list.remove(shoot)
 
-        if(len(enemy.shoot_list) > 0):
-            for shoot in enemy.shoot_list:
-                shoot.draw(screen)
-                shoot.trajectory()
-                if(shoot.rect.top > 900):
-                    enemy.shoot_list.remove(shoot)
+        if(len(enemy_list)>0):
+            for enemy in enemy_list:
+                enemy.move(play_time)
+                enemy.draw(screen)
+
+            if(len(enemy.shoot_list) > 0):
+                for shoot in enemy.shoot_list:
+                    shoot.draw(screen)
+                    shoot.trajectory()
+                    if(shoot.rect.top > 900):
+                        enemy.shoot_list.remove(shoot)
 
         pygame.display.update()
 
