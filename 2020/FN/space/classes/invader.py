@@ -22,8 +22,8 @@ class Invader(pygame.sprite.Sprite):
         self.rect.left = pos_x
 
         self.shoot_list = []
-        self.shoot_range = 5
-        self.speed = 10
+        self.shoot_range = 1
+        self.speed = 1
 
         self.horizontal_move = True
         self.counter = 0
@@ -32,33 +32,38 @@ class Invader(pygame.sprite.Sprite):
         self.limit_right = pos_x + distance
         self.limit_left = pos_x - distance
 
+        self.conquest = False
+
+
+
     def move(self, play_time):
-        # Disparar
-        self.shoot()
-        # Animación
-        if (play_time == self.time_to_change):
-            self.sprite_selected += 1
-            self.time_to_change += 1
-            if self.sprite_selected > len(self.sprite_list)-1:
-                self.sprite_selected = 0
-        if(self.counter < 2):
-            # Movimiento horizontal
-            if(self.horizontal_move == True):
-                self.rect.left = self.rect.left + self.speed
-                if(self.rect.left > self.limit_right):
-                    self.horizontal_move = False
-                    self.counter += 1
+        if(self.conquest == False):
+            # Disparar
+            self.shoot()
+            # Animación
+            if (play_time == self.time_to_change):
+                self.sprite_selected += 1
+                self.time_to_change += 1
+                if self.sprite_selected > len(self.sprite_list)-1:
+                    self.sprite_selected = 0
+            if(self.counter < 2):
+                # Movimiento horizontal
+                if(self.horizontal_move == True):
+                    self.rect.left = self.rect.left + self.speed
+                    if(self.rect.left > self.limit_right):
+                        self.horizontal_move = False
+                        self.counter += 1
+                else:
+                    self.rect.left = self.rect.left - self.speed
+                    if(self.rect.left < self.limit_left):
+                        self.horizontal_move = True
             else:
-                self.rect.left = self.rect.left - self.speed
-                if(self.rect.left < self.limit_left):
-                    self.horizontal_move = True
-        else:
-            # movimiento descendente
-            if(self.down == self.rect.top):
-                self.counter = 0
-                self.down = self.rect.top + 40
-            else:
-                self.rect.top += 1
+                # movimiento descendente
+                if(self.down == self.rect.top):
+                    self.counter = 0
+                    self.down = self.rect.top + 40
+                else:
+                    self.rect.top += 1
 
     def shoot(self):
         if(randint(0, 100) < self.shoot_range):

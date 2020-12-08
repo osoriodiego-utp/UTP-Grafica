@@ -9,15 +9,20 @@ from pygame.locals import *
 import numpy as np
 from random import randint
 
-# GLOBALES
-X, Y = 900, 480
-enemy_list = []
-
 # CLASES
 from classes import ship
 from classes import invader
 # from classes import invader as invader
 
+# GLOBALES
+X, Y = 900, 480
+enemy_list = []
+
+def stop_game():
+    for enemy in enemy_list:
+        for shoot in enemy.shoot_list:
+            enemy.shoot_list.remove(shoot)
+        enemy.conquest = True
 
 def load_enemies():
     posx = 100
@@ -47,6 +52,10 @@ def space_invaders():
 
     pygame.mixer.music.load("assets/sounds/spaceship.ogg")
     pygame.mixer.music.play()
+
+    game_font = pygame.font.SysFont("Arial", 30)
+    lost_game_text = game_font.render("PERDISTE", 0, (120, 100, 40))
+    win_game_text = game_font.render("GANASTE", 0, (120, 100, 40))
 
     player = ship.Space_ship(X, Y)
     # enemy_list = invader(100, 50)
@@ -98,14 +107,18 @@ def space_invaders():
                 enemy.draw(screen)
 
                 if enemy.rect.colliderect(player.rect):
-                    pass
+                    player.destroy()
+                    playing = False
+                    stop_game()
 
                 if(len(enemy.shoot_list) > 0):
                     for e_shoot in enemy.shoot_list:
                         e_shoot.draw(screen)
                         e_shoot.trajectory()
                         if(e_shoot.rect.colliderect(player.rect)):
-                            pass
+                            player.destroy()
+                            playing = False
+                            stop_game()
                         if(e_shoot.rect.top > 900):
                             enemy.shoot_list.remove(e_shoot)
                         else:
@@ -114,6 +127,12 @@ def space_invaders():
                                 if (e_shoot.rect.colliderect(p_shoot.rect)):
                                     player.shoot_list.remove(p_shoot)
                                     enemy.shoot_list.remove(e_shoot)
+        else:
+            screen.blit(lost_game_text, (300, 300))
+
+        if(playing ==False):
+            pygame.mixer.music.fadeout(3000)
+            screen.blit(lost_game_text, (300, 300))
 
         pygame.display.update()
 

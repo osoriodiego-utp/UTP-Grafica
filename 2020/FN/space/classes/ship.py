@@ -6,14 +6,18 @@ from classes import projectile
 
 class Space_ship(pygame.sprite.Sprite):
     def __init__(self, X, Y):
+        pygame.sprite.Sprite.__init__(self)
+
         self.X = X
         self.Y = Y
 
-        pygame.sprite.Sprite.__init__(self)
-        self.sprite_nave = pygame.image.load("assets/images/nave.jpg")
-        self.shoot_sound = pygame.mixer.Sound("assets/sounds/shoot.ogg")
+        self.sprite_ship = pygame.image.load("assets/images/nave.jpg")
+        self.sprite_xplosion = pygame.image.load("assets/images/explosion.jpg")
 
-        self.rect = self.sprite_nave.get_rect()
+        self.sound_shoot = pygame.mixer.Sound("assets/sounds/shoot.ogg")
+        self.sound_xplosion = pygame.mixer.Sound("assets/sounds/explosion.ogg")
+
+        self.rect = self.sprite_ship.get_rect()
         self.rect.centerx = int(X/2)
         self.rect.centery = Y-30
         self.alive = True
@@ -36,10 +40,16 @@ class Space_ship(pygame.sprite.Sprite):
                 self.rect.right = self.X
 
     def shoot(self, x, y):
-        self.shoot_sound.play()
+        self.sound_shoot.play()
         ship_projectile = projectile.Projectile(x, y, "assets/images/disparo_a.jpg", True)
         self.shoot_list.append(ship_projectile)
 
+    def destroy(self):
+        self.sound_xplosion.play()
+        self.sprite_ship = self.sprite_xplosion
+        self.alive = False
+        self.speed = 0
+
     def draw(self, surface):
-        surface.blit(self.sprite_nave, self.rect)
+        surface.blit(self.sprite_ship, self.rect)
 
